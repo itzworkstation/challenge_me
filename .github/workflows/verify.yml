@@ -58,3 +58,11 @@ jobs:
       #   run: bundler-audit --update
       # - name: Security audit application code
       #   run: brakeman -q -w2
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Bundler Audit"
+        uses: andrewmcodes/bundler-audit-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
