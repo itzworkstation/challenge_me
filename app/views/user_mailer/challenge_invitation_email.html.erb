@@ -1,0 +1,13 @@
+<html>
+  <title>
+    Challenge invitation
+  </title>
+  <body>
+    <h6>Dear <%= @invitation.invited_to.name%></h6>
+    <p>
+      <%= @invitation.invited_by.name%> has invited you in challenge <%=
+      @invitation.challenge.name %>. Please accept and complete this challenge.
+      <s><%= link_to "Accept", @url %></s>
+    </p>
+  </body>
+</html>

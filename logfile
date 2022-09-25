@@ -1,0 +1,2 @@
+2022-09-18 00:24:48.221 IST [12086] FATAL:  database files are incompatible with server
+2022-09-18 00:24:48.221 IST [12086] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 14.5 (Homebrew).
