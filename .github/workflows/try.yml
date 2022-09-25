@@ -21,5 +21,7 @@ jobs:
         with:
           bundler-cache: true
       # Add or replace any other lints here
+      - name: Installing bundler-audit
+        run: gem install bundler-audit
       - name: Security audit dependencies
         run: bundle exec bundler-audit
