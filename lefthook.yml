@@ -1,0 +1,17 @@
+pre-commit:
+  parallel: true
+  commands:
+    audit:
+      run: brakeman --no-pager
+    rails_best_practices:
+	run: rails_best_practices
+    reek:
+	run: reek
+    rubocop:
+      files: git diff --name-only --staged
+      glob: "*.rb"
+      run: rubocop --force-exclusion {files}
+pre-push:
+  commands:
+    test:
+      run: rspec .
