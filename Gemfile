@@ -41,6 +41,7 @@ gem 'active_model_otp'
 gem 'yajl-ruby', require: 'yajl'
 gem 'blueprinter'
 gem 'bundler-audit', '~> 0.9.1'
+gem 'brakeman', '~> 5.3', '>= 5.3.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
