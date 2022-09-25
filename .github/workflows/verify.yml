@@ -53,6 +53,7 @@ jobs:
           bundler-cache: true
       # Add or replace any other lints here hh
       - name: Security audit dependencies
+        run: gem install bundler-audit
         run: bin/bundler-audit --update
       - name: Security audit application code
         run: bin/brakeman -q -w2

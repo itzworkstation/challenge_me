@@ -40,6 +40,7 @@ gem "rack-cors"
 gem 'active_model_otp'
 gem 'yajl-ruby', require: 'yajl'
 gem 'blueprinter'
+gem "brakeman"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -90,6 +90,7 @@ GEM
     blueprinter (0.25.3)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
+    brakeman (5.3.1)
     builder (3.2.4)
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
@@ -231,6 +232,7 @@ DEPENDENCIES
   aws-sdk-s3
   blueprinter
   bootsnap
+  brakeman
   debug
   image_processing (~> 1.2)
   jwt
