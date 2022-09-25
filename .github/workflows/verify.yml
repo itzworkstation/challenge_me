@@ -3,21 +3,18 @@ on:
   pull_request:
     branches:
       - "*"
-
-name: Setup environment
-description: Sets up environment for other jobs
 env:
-  RUBY: '3.1.2'
+  RUBY: "3.1.2"
 
 inputs:
   ruby-version:
-    description: 'Ruby version to use'
+    description: "Ruby version to use"
     required: true
-    default: '3.1.2'
+    default: "3.1.2"
   node-version:
-    description: 'Node version to use'
+    description: "Node version to use"
     required: false
-    default: '16.x'
+    default: "16.x"
 runs:
   using: composite
   steps:
@@ -26,7 +23,7 @@ runs:
       with:
         ruby-version: ${{ inputs.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-  
+
     - name: Setup Node
       uses: actions/setup-node@v1
       with:
