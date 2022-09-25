@@ -114,6 +114,7 @@ GEM
     jwt (2.5.0)
     launchy (2.5.0)
       addressable (~> 2.7)
+    lefthook (0.7.7)
     letter_opener (1.8.1)
       launchy (>= 2.2, < 3)
     loofah (2.19.0)
@@ -230,6 +231,7 @@ DEPENDENCIES
   debug
   image_processing (~> 1.2)
   jwt
+  lefthook (~> 0.7.7)
   letter_opener
   pg (~> 1.1)
   puma (~> 5.0)

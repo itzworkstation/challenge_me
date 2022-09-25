@@ -47,6 +47,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'lefthook', '~> 0.7.7'
   gem "letter_opener"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem "spring"

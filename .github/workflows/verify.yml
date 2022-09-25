@@ -1,0 +1,99 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - "*"
+
+name: Setup environment
+description: Sets up environment for other jobs
+env:
+  RUBY: '3.1.2'
+
+inputs:
+  ruby-version:
+    description: 'Ruby version to use'
+    required: true
+    default: '3.1.2'
+  node-version:
+    description: 'Node version to use'
+    required: false
+    default: '16.x'
+runs:
+  using: composite
+  steps:
+    - name: Setup Ruby and install gems
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ inputs.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+  
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ inputs.node-version }}
+jobs:
+  linters:
+    name: Linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        run: |
+          yarn install --pure-lockfile
+
+      - name: Run linters
+        run: |
+          bin/rubocop --parallel
+          bin/stylelint
+          bin/prettier
+          bin/eslint
+
+      - name: Run security checks
+        run: |
+          bin/bundler-audit --update
+          bin/brakeman -q -w2
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12.7
+        env:
+          POSTGRES_USER: myapp
+          POSTGRES_DB: myapp_test
+          POSTGRES_PASSWORD: ""
+        ports: ["5432:5432"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ inputs.ruby-version }}
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: yarn
+
+      - name: Install packages
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: myapp
+        run: |
+          bin/rails db:setup
+
+      - name: Run tests
+        run: bin/rspec
