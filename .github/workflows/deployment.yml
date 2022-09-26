@@ -40,20 +40,20 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Build and run test
+      - name: Build
         env:
           DATABASE_URL: postgres://rails:password@localhost:5432/rails_test
           REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rake db:create
+      - name: Run tests
+        run: |
+          # bundle exec rake db:create
           bundle exec rake db:migrate
-          bundle exec rspec .
+          # bundle exec rspec
       # env:
       #   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       #   run: | echo $SSH_KEY | base64 -d > ssh-key
