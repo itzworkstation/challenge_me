@@ -79,5 +79,12 @@ test:
 #   database: challenge_me_production
 #   username: challenge_me
 #   password: <%= ENV["CHALLENGE_ME_DATABASE_PASSWORD"] %>
+# production:
+#   url: <%= ENV['DATABASE_URL'] %>
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  database: <%= ENV['RDS_DATABASE'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOST'] %>
+  port: 5432
