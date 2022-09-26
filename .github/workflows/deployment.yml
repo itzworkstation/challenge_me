@@ -9,52 +9,53 @@ on:
   push:
     branches: ["develop"]
 jobs:
-  deployment:
+  test:
     runs-on: ubuntu-latest
     services:
-      db:
+      postgres:
         image: postgres:11-alpine
-        ports: ["5432:5432"]
+        ports:
+          - "5432:5432"
         env:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
       redis:
         image: redis
         ports: ["6379:6379"]
         options: --entrypoint redis-server
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      REDIS_URL: redis://localhost:6379/0
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Ruby & bundle install
-        uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
         with:
           bundler: "Gemfile.lock"
           bundler-cache: true
-          ruby-version: 3.1.2
-      - name: Setup Yarn for rails n
-        uses: borales/actions-yarn@v2.0.0
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      # Add or replace test runners here
+      - name: Run tests
+        run: bin/rails test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
         with:
-          cmd: install
-      - name: preparing test env
-        env:
-          DATABASE_URL: postgres://rails:password@localhost:5432/rails_test
-          REDIS_URL: redis://localhost:6379/0
-          RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        run: |
-          bundle exec rake db:create
-          bundle exec rake db:migrate
-      - name: run tests
-        run: |
-          bundle exec rails test
-      # env:
-      #   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #   run: | echo $SSH_KEY | base64 -d > ssh-key
-      #     chmod 400 ssh-key
+          bundler-cache: true
+      # Add or replace any other lints here
+      - name: Installing bundler-audit
+        run: gem install bundler-audit
+      - name: Security audit dependencies
+        run: bundle exec bundler-audit
+      - name: Security audit application code, brakeman
+        run: bundle exec brakeman -q -w2
