@@ -34,13 +34,14 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
         with:
+          bundler: "Gemfile.lock"
           bundler-cache: true
           ruby-version: 3.1.2
       - name: Setup Yarn for rails n
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Build and run test
+      - name: preparing test env
         env:
           DATABASE_URL: postgres://rails:password@localhost:5432/rails_test
           REDIS_URL: redis://localhost:6379/0
@@ -48,12 +49,15 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         run: |
-          sudo apt-get -yqq install libpq-dev
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+          # sudo apt-get -yqq install libpq-dev
+          # gem install bundler
+          # bundle install --jobs 4 --retry 3
           bundle exec rake db:create
           bundle exec rake db:migrate
           # bundle exec rspec .
+      - name: run tests
+        run: |
+          bundle exec rspec
       # env:
       #   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       #   run: | echo $SSH_KEY | base64 -d > ssh-key
