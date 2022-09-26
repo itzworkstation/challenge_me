@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Ruby
+      - name: Setup Ruby & bundle install
         uses: ruby/setup-ruby@0a29871fe2b0200a17a4497bae54fe5df0d973aa # v1.115.3
         with:
           bundler: "Gemfile.lock"
@@ -49,15 +49,11 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         run: |
-          # sudo apt-get -yqq install libpq-dev
-          # gem install bundler
-          # bundle install --jobs 4 --retry 3
           bundle exec rake db:create
           bundle exec rake db:migrate
-          # bundle exec rspec .
       - name: run tests
         run: |
-          bundle exec rspec
+          bundle exec rails test
       # env:
       #   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       #   run: | echo $SSH_KEY | base64 -d > ssh-key
