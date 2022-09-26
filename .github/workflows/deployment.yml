@@ -35,7 +35,7 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: 3.1.2
-      - name: Setup Yarn
+      - name: Setup Yarn for rails
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
