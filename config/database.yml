@@ -23,7 +23,10 @@ default: &default
 
 development:
   <<: *default
-  database: challenge_me_development
+  database: dockerise_rails_test
+  username: postgres
+  password: password
+  host: db
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -81,6 +84,15 @@ test:
 #   password: <%= ENV["CHALLENGE_ME_DATABASE_PASSWORD"] %>
 # production:
 #   url: <%= ENV['DATABASE_URL'] %>
+staging:
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['POSTGRESQL_HOST'] %>
+  username: <%= ENV['POSTGRESQL_USER_NAME'] %>
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  pool: 5
+  database: <%= ENV['POSTGRESQL_DB'] %>
+
 production:
   <<: *default
   database: <%= ENV['RDS_DATABASE'] %>
