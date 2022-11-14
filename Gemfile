@@ -53,6 +53,11 @@ group :development do
   gem "letter_opener"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem "spring"
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
 end
 gem 'redis-rails'
 gem 'sidekiq'
