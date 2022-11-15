@@ -6,7 +6,7 @@ set :repo_url, "git@github.com:itzworkstation/challenge_me.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-
+set :branch, 'aws-eb'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/deploy/challenge_me_dev"
 

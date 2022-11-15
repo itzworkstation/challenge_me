@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: dockerise_rails_test
+  database: challenge_me_development
   # username: postgres
   # password: password
   # host: db
