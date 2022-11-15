@@ -10,6 +10,7 @@ set :repo_url, "git@github.com:itzworkstation/challenge_me.git"
 set :branch, 'aws-eb'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/deploy/challenge_me_dev"
+set :puma_bind, "unix:/home/deploy/challenge_me_dev/shared/tmp/sockets/challenge_me_dev_puma.sock"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
