@@ -278,7 +278,7 @@ DEPENDENCIES
   lefthook (~> 0.7.7)
   letter_opener
   pg (~> 1.1)
-  puma (~> 5.0)
+  puma (~> 5.1)
   rack-cors
   rails (~> 7.0.4)
   redis-rails
