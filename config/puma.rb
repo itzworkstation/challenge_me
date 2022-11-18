@@ -22,7 +22,7 @@ port ENV.fetch("PORT") { 3000 }
 environment ENV.fetch("RAILS_ENV") { "staging" }
 
 # Specifies the `pidfile` that Puma will use.
-# bind "unix:///home/deploy/challenge_me_dev/shared/tmp/sockets/challenge_me_dev_puma.sock"
+bind "unix:///home/deploy/challenge_me_dev/shared/tmp/sockets/puma.sock"
 pidfile "/home/deploy/challenge_me_dev/shared/tmp/pids/puma.pid"
 
 # Specifies the number of `workers` to boot in clustered mode.
