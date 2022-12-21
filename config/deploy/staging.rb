@@ -4,7 +4,7 @@
 # You can define all roles on a single server, or split them:
 set :rails_env, 'staging'
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'staging'))
-server "ec2-43-204-227-255.ap-south-1.compute.amazonaws.com", user: "deploy", roles: %w{app db web worker}
+server "65.2.153.34", user: "deploy", roles: %w{app db web worker}
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 

@@ -3,8 +3,8 @@ lock "~> 3.17.1"
 
 set :application, "challenge_me"
 set :repo_url, "git@github.com:itzworkstation/challenge_me.git"
-# set :user, 'deploy'
-# set :puma_enable_socket_service, true
+set :user, 'deploy'
+set :puma_enable_socket_service, true
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :branch, 'aws-eb'
