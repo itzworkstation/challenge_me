@@ -10,7 +10,7 @@ gem "rails", "~> 7.0.4"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 5.1"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -53,6 +53,11 @@ group :development do
   gem "letter_opener"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   gem "spring"
+  gem 'capistrano'
+  gem "capistrano3-puma", require: false, github: "seuros/capistrano-puma"
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
 end
 gem 'redis-rails'
 gem 'sidekiq'

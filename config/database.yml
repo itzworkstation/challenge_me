@@ -24,7 +24,9 @@ default: &default
 development:
   <<: *default
   database: challenge_me_development
-
+  # username: postgres
+  # password: password
+  # host: db
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -79,5 +81,21 @@ test:
 #   database: challenge_me_production
 #   username: challenge_me
 #   password: <%= ENV["CHALLENGE_ME_DATABASE_PASSWORD"] %>
+# production:
+#   url: <%= ENV['DATABASE_URL'] %>
+staging:
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['POSTGRESQL_HOST'] %>
+  username: <%= ENV['POSTGRESQL_USER_NAME'] %>
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
+  pool: 5
+  database: <%= ENV['POSTGRESQL_DB'] %>
+
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  database: <%= ENV['RDS_DATABASE'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOST'] %>
+  port: 5432

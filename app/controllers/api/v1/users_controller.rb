@@ -22,18 +22,17 @@ module Api
 
       def verify_otp
         user = User.where(mobile_number: params[:username]).or(User.where(email: params[:username])).first
-        # if user && is_otp_verified?(user: user)
-        #   if user.update_attribute('is_verified', true)
+        if user && is_otp_verified?(user: user)
+          if user.update_attribute('is_verified', true)
             token = JsonWebToken.encode(user_id: user.id)
             time = Time.now + 24.hours.to_i
             response = UserBlueprint.render(user, access_token: token)
             render json: response
-        #   end
-
-        # else
-        #   msg = user.present? ? "Invalid verification code" : "Invalid user"
-        #   render json: {error: msg}, status: :unprocessable_entity
-        # end
+          end
+        else
+          msg = user.present? ? "Invalid verification code" : "Invalid user"
+          render json: {error: msg}, status: :unprocessable_entity
+        end
       end
 
       private
